@@ -1,14 +1,16 @@
 /* eslint-disable no-unused-vars */
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {View} from 'react-native';
 import {StatusBar} from 'react-native';
 import {Text} from 'react-native';
 import {Dimensions} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import {StyleSheet} from 'react-native';
 import {Checkbox} from 'react-native-paper';
 import FormButton from '../components/FormButton';
 import FormInput from '../components/FormInput';
 import Colors from '../constants/Colors';
+import {AuthContext} from '../navigations/AuthProvider';
 
 const Registration = ({navigation}) => {
   const [email, setEmail] = useState();
@@ -16,6 +18,7 @@ const Registration = ({navigation}) => {
   const [username, setUsername] = useState();
   const [confirmPass, setConfirmpass] = useState();
   const [checked, setChecked] = React.useState(false);
+  const {register} = useContext(AuthContext);
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={Colors.mainColor} />
@@ -25,7 +28,9 @@ const Registration = ({navigation}) => {
       <View>
         <FormInput
           labelValue={username}
-          onChangeText={() => {}}
+          onChangeText={txt => {
+            setUsername(txt);
+          }}
           placeholderText={'Username'}
           keyboardType="email-address"
         />
@@ -34,7 +39,9 @@ const Registration = ({navigation}) => {
       <View>
         <FormInput
           labelValue={email}
-          onChangeText={() => {}}
+          onChangeText={text => {
+            setEmail(text);
+          }}
           placeholderText={'Email'}
           keyboardType="email-address"
         />
@@ -42,7 +49,9 @@ const Registration = ({navigation}) => {
 
       <FormInput
         labelValue={password}
-        onChangeText={() => {}}
+        onChangeText={text => {
+          setPassword(text);
+        }}
         placeholderText={'Password'}
         secureTextEntry={true}
       />
@@ -53,16 +62,7 @@ const Registration = ({navigation}) => {
         placeholderText={'Confirm Password'}
         secureTextEntry={true}
       />
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center',
-          alignSelf: 'flex-start',
-          position: 'absolute',
-          marginTop: 515,
-          marginLeft: 30,
-        }}>
+      <View style={styles.checkbox}>
         <Checkbox
           color={Colors.mainColor}
           status={checked ? 'checked' : 'unchecked'}
@@ -75,9 +75,15 @@ const Registration = ({navigation}) => {
       <FormButton
         buttonTitle={'Register'}
         onPress={() => {
-          navigation.navigate('LogIn');
+          register(email, password);
         }}
       />
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('LogIn');
+        }}>
+        <Text>Already a user? Go to Log In</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -112,5 +118,14 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     fontSize: 20,
     textAlign: 'center',
+  },
+  checkbox: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+    position: 'absolute',
+    marginTop: 515,
+    marginLeft: 30,
   },
 });

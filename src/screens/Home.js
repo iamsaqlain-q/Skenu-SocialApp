@@ -1,12 +1,17 @@
 /* eslint-disable no-unused-vars */
 import 'react-native-gesture-handler';
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {FlatList, Image, View} from 'react-native';
 import {Dimensions} from 'react-native';
 import {StyleSheet} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {TouchableOpacity} from 'react-native';
+import {AuthContext} from '../navigations/AuthProvider';
+import {Text} from 'react-native';
+import Colors from '../constants/Colors';
 
-const Home = () => {
+const Home = ({navigation}) => {
+  const {logout} = useContext(AuthContext);
   const [stories, setStories] = useState([
     {
       id: 1,
@@ -31,11 +36,9 @@ const Home = () => {
         <View>
           <Ionicons name="add-circle-outline" color="#333333" size={27} />
         </View>
-        <View>
-          <Image
-            source={require('../assets/logo.png')}
-            style={{width: 47, height: 27}}
-          />
+
+        <View style={styles.logo}>
+          <Text style={styles.logoText}>1 &gt; 0</Text>
         </View>
         <View>
           <Image
@@ -105,7 +108,18 @@ const Home = () => {
         <Ionicons name="heart-outline" color="#333333" size={20} />
         <Ionicons name="arrow-redo-outline" color="#333333" size={20} />
         <Ionicons name="chatbubble-outline" color="#333333" size={20} />
-        <Ionicons name="person-outline" color="#333333" size={20} />
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('UserDetails');
+          }}>
+          <Ionicons name="person-outline" color="#333333" size={20} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            logout();
+          }}>
+          <Ionicons name="log-out-outline" color="#333333" size={20} />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -127,6 +141,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 50,
+  },
+  logo: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 33,
+    height: 33,
+    backgroundColor: '#C29551',
+    borderWidth: 1.5,
+    borderRadius: 25,
+    transform: [{scaleX: 1.5}],
+  },
+  logoText: {
+    textAlign: 'center',
+    fontSize: 10,
+    color: Colors.white,
   },
   addStory: {
     flexDirection: 'row',
@@ -160,5 +189,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
+    marginTop: 50,
   },
 });

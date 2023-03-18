@@ -1,15 +1,16 @@
-/* eslint-disable no-unused-vars */
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Image, TouchableOpacity, View} from 'react-native';
 import {Text} from 'react-native';
 import {Dimensions} from 'react-native';
 import {StyleSheet} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
 import Colors from '../constants/Colors';
+import {AuthContext} from '../navigations/AuthProvider';
 
 const LogIn = ({navigation}) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const {login} = useContext(AuthContext);
   return (
     <View style={styles.container}>
       <Image source={require('../assets/background.png')} style={styles.img} />
@@ -17,7 +18,9 @@ const LogIn = ({navigation}) => {
         <Text style={styles.signinText}>Sign in to your account</Text>
         <TextInput
           value={email}
-          onChangeText={() => {}}
+          onChangeText={text => {
+            setEmail(text);
+          }}
           placeholder="Email"
           placeholderTextColor="grey"
           keyboardType="email-address"
@@ -26,7 +29,9 @@ const LogIn = ({navigation}) => {
 
         <TextInput
           value={password}
-          onChangeText={() => {}}
+          onChangeText={text => {
+            setPassword(text);
+          }}
           placeholder="Password"
           placeholderTextColor="grey"
           secureTextEntry={true}
@@ -36,7 +41,7 @@ const LogIn = ({navigation}) => {
         <TouchableOpacity
           style={styles.loginBtn}
           onPress={() => {
-            navigation.navigate('Home');
+            login(email, password);
           }}>
           <Text style={styles.btnText}>Log In</Text>
         </TouchableOpacity>

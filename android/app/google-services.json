@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "351306857131",
+    "project_id": "skenuapp-4b825",
+    "storage_bucket": "skenuapp-4b825.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351306857131:android:1ad8f87826bd814cea15ee",
+        "android_client_info": {
+          "package_name": "com.skenu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "351306857131-knrlcas64hdidkrqd3v91rnd8esrgj6f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqsuLjcSS4EIb5qlImo3W-n_UO7urHdT8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "351306857131-knrlcas64hdidkrqd3v91rnd8esrgj6f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
